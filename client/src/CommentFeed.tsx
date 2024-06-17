@@ -5,12 +5,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 interface Comment {
   id: number;
   name: string;
-  comment: string;
+  message: string;
 }
 
 const fetchComments = async (): Promise<Comment[]> => {
-  const { data } = await axios.get('http://localhost:3001/getComments');
-  return data.comments;
+  const response = await axios.get('http://localhost:3001/getComments');
+  console.log(response);
+  return response.data;
 };
 
 const CommentFeed: React.FC = () => {
@@ -43,7 +44,7 @@ const CommentFeed: React.FC = () => {
     <ul>
       {comments?.map((comment) => (
         <li key={comment.id}>
-          <strong>{comment.name}</strong>: {comment.comment}
+          <strong>{comment.name}</strong>: {comment.message}
         </li>
       ))}
     </ul>

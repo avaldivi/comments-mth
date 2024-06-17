@@ -9,7 +9,7 @@ const CommentForm: React.FC = () => {
 
   const mutation = useMutation({
     mutationFn: (newComment: { name: string; message: string }) =>
-      axios.post('http://localhost:3001/api/createComment', newComment),
+      axios.post('http://localhost:3001/createComment', newComment),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['comments'] });
     },
