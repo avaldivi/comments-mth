@@ -60,7 +60,12 @@ We recommend spending up to four hours on this assignment. If you don't get ever
 
 ### Run in Development
 
+![Final](final.png)
+
 ```
 $ npm install
 $ npm run dev
+$ cd client
+$ npm install
+$ npm start
 ```
