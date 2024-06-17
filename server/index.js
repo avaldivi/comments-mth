@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const DataAccessObject = require('./dataAccessObject');
 const Comment = require('./comment');
+const { WebSocketServer } = require('ws');
 
 const app = express();
 const port = process.env.PORT || 3001;
@@ -14,6 +15,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const dataAccessObject = new DataAccessObject('./database.sqlite3');
 const comment = new Comment(dataAccessObject);
+
+const wss = new WebSocketServer({ port: 8080 });
+
+wss.on('connection', (ws) => {
+  console.log('Client connected');
+  ws.on('close', () => console.log('Client disconnected'));
+});
+
+const broadcast = (data) => {
+  wss.clients.forEach((client) => {
+    if (client.readyState === client.OPEN) {
+      client.send(JSON.stringify(data));
+    }
+  });
+};
 
 comment.createTable().catch(error => {
   console.log(`Error: ${JSON.stringify(error)}`);
