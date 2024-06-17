@@ -1,10 +1,17 @@
 export const formatDateTime = (dateString: string) => {
   const date = new Date(dateString);
-  const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-  const formattedDate = date.toLocaleDateString('en-US', options);
-  const formattedTime = date.toLocaleTimeString('en-US', {
+
+  const options: Intl.DateTimeFormatOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-  });
-  return `${formattedDate} at ${formattedTime}`;
+    hour12: true,
+  };
+
+  const formatter = new Intl.DateTimeFormat('en-US', options);
+  const formattedDateTime = formatter.format(date);
+
+  return formattedDateTime;
 };

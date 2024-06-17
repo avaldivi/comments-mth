@@ -58,7 +58,10 @@ const CommentFeed: React.FC = () => {
       {comments?.map((comment) => (
         <div key={comment.id}>
           <Comment>
-            <CommentAvatar src='https://i.ibb.co/QrHN4SG/mailchimp-242x256.png' />
+            <CommentAvatar
+              alt='default Mailchimp logo avatar'
+              src='https://i.ibb.co/QrHN4SG/mailchimp-242x256.png'
+            />
             <CommentContent>
               <CommentAuthor>{comment.name}</CommentAuthor>
               <CommentMetadata>
