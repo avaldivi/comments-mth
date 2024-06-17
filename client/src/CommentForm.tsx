@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { FormTextArea, Button, Form, FormField } from 'semantic-ui-react';
 
 const CommentForm: React.FC = () => {
   const [name, setName] = useState<string>('');
@@ -15,6 +16,13 @@ const CommentForm: React.FC = () => {
     },
   });
 
+  const deleteComments = useMutation({
+    mutationFn: () => axios.delete('http://localhost:3001/deleteComments'),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['comments'] });
+    },
+  });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     mutation.mutate({ name, message: comment });
@@ -23,24 +31,29 @@ const CommentForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <Form onSubmit={handleSubmit}>
+      <FormField>
         <label>Name</label>
         <input
-          type='text'
           value={name}
+          type='text'
           onChange={(e) => setName(e.target.value)}
         />
-      </div>
-      <div>
-        <label>Comment</label>
-        <textarea
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-      </div>
-      <button type='submit'>Submit</button>
-    </form>
+      </FormField>
+      <FormTextArea
+        label='Comment'
+        value={comment}
+        onChange={(e) => setComment(e.target.value)}
+      />
+      <Button content='Add Comment' labelPosition='left' icon='edit' primary />
+      <Button
+        onClick={() => deleteComments.mutate()}
+        content='Delete All Comments'
+        labelPosition='left'
+        icon='trash'
+        negative
+      />
+    </Form>
   );
 };
 

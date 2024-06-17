@@ -1,11 +1,24 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import {
+  CommentText,
+  CommentMetadata,
+  CommentContent,
+  CommentAvatar,
+  CommentAuthor,
+  CommentActions,
+  CommentAction,
+  Comment,
+  Button,
+} from 'semantic-ui-react';
+import { formatDateTime } from './utils/dateHelpers';
 
 interface Comment {
   id: number;
   name: string;
   message: string;
+  created: string;
 }
 
 const fetchComments = async (): Promise<Comment[]> => {
@@ -41,13 +54,22 @@ const CommentFeed: React.FC = () => {
   }
 
   return (
-    <ul>
+    <>
       {comments?.map((comment) => (
-        <li key={comment.id}>
-          <strong>{comment.name}</strong>: {comment.message}
-        </li>
+        <div key={comment.id}>
+          <Comment>
+            <CommentAvatar src='https://i.ibb.co/QrHN4SG/mailchimp-242x256.png' />
+            <CommentContent>
+              <CommentAuthor>{comment.name}</CommentAuthor>
+              <CommentMetadata>
+                <div>{formatDateTime(comment.created)}</div>
+              </CommentMetadata>
+              <CommentText>{comment.message}</CommentText>
+            </CommentContent>
+          </Comment>
+        </div>
       ))}
-    </ul>
+    </>
   );
 };
 
