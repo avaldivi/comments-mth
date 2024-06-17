@@ -35,12 +35,14 @@ const CommentForm: React.FC = () => {
       <FormField>
         <label>Name</label>
         <input
+          placeholder='Add your name'
           value={name}
           type='text'
           onChange={(e) => setName(e.target.value)}
         />
       </FormField>
       <FormTextArea
+        placeholder='Add a comment'
         label='Comment'
         value={comment}
         onChange={(e) => setComment(e.target.value)}

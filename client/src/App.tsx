@@ -1,6 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { CommentGroup, Header } from 'semantic-ui-react';
+import { CommentGroup } from 'semantic-ui-react';
 
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';

@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQuery, useQueryClient} from '@tanstack/react-query';
 import {
   CommentText,
   CommentMetadata,
   CommentContent,
   CommentAvatar,
   CommentAuthor,
-  CommentActions,
-  CommentAction,
   Comment,
-  Button,
 } from 'semantic-ui-react';
 import { formatDateTime } from './utils/dateHelpers';
 
